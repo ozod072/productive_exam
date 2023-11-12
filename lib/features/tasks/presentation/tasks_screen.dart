@@ -5,6 +5,8 @@ import 'package:productive/features/tasks/presentation/pages/all.dart';
 import 'package:productive/features/tasks/presentation/pages/upcoming.dart';
 
 import '../../../assets/constants/colors.dart';
+import 'drawer/drawer.dart';
+import 'pages/notes_page.dart';
 
 class TaskScreen extends StatefulWidget {
   const TaskScreen({super.key});
@@ -27,7 +29,7 @@ class _TaskScreenState extends State<TaskScreen>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        drawer: const Drawer(),
+        drawer: const Drawer(child: MyDrawer()),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           titleSpacing: 0,
@@ -40,9 +42,23 @@ class _TaskScreenState extends State<TaskScreen>
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SvgPicture.asset(AppIcons.hamburger),
+                    Builder(builder: (context) {
+                      return GestureDetector(
+                          onTap: () {
+                            Scaffold.of(context).openDrawer();
+                            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>const MyDrawer()));
+                          },
+                          child: SvgPicture.asset(AppIcons.hamburger));
+                    }),
                     const Spacer(),
-                    SvgPicture.asset(AppIcons.note),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (c) => const NotesPage()));
+                        },
+                        child: SvgPicture.asset(AppIcons.note)),
                     const SizedBox(width: 24),
                     SvgPicture.asset(AppIcons.notification),
                   ],
@@ -61,7 +77,9 @@ class _TaskScreenState extends State<TaskScreen>
                     ),
                     suffixIcon: Container(
                       padding: const EdgeInsets.all(10),
-                      child: SvgPicture.asset(AppIcons.filter),
+                      child: GestureDetector(
+                          onTap: () {},
+                          child: SvgPicture.asset(AppIcons.filter)),
                     ),
                     filled: true,
                     fillColor: textFieldBackgroundColor,

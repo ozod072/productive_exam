@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 const white = _white;
@@ -40,7 +41,7 @@ const studyIconColor = _cDD8491;
 const upComingLink = _c4B7FD6;
 const allCreateNavigation = _c525298;
 const allPageTextColor = _cABABAB;
-const englishStudy = _cDD8491;
+const englishStudy  = _cDD8491;
 const cleaningRoom = _c4B7FD6;
 //
 

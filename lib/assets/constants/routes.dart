@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:productive/core/pages/error.dart';
 import 'package:productive/features/authentication/presentation/login_screen.dart';
+import 'package:productive/features/authentication/presentation/pages/onboarding.dart';
 import 'package:productive/features/home/home.dart';
 import 'package:productive/features/tasks/presentation/pages/notes_page.dart';
 
@@ -19,6 +20,10 @@ class RouteGenerator {
       case '/home':
         return MaterialPageRoute(
           builder: (context) => const HomeScreen(),
+        );
+      case '/onboarding':
+        return MaterialPageRoute(
+          builder: (context) => const Onboarding(),
         );
       case '/login':
         return MaterialPageRoute(

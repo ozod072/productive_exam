@@ -17,6 +17,7 @@ class TabNavigator extends StatefulWidget {
   final NavItemEnum tabItem;
 
   @override
+  // ignore: library_private_types_in_public_api
   _TabNavigatorState createState() => _TabNavigatorState();
 }
 

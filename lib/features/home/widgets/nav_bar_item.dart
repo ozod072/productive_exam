@@ -36,12 +36,14 @@ class TabItemWidget extends StatelessWidget {
               if (item.id != 2)
                 SvgPicture.asset(
                   item.icon,
+                  // ignore: deprecated_member_use
                   color: isActive ? activeColor : inactiveColor,
                 ),
               if (item.id == 2)
                 SvgPicture.asset(
                   item.icon,
-                 
+
+                  // ignore: deprecated_member_use
                   color: isActive ? activeColor : inactiveColor,
                 ),
               // const SizedBox(height: 4),
