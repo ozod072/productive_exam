@@ -55,11 +55,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void onTabChange() {
     setState(() => _currentIndex = _controller.index);
   }

@@ -131,144 +131,160 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Builder(builder: (context) {
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () {
-            if (FocusScope.of(context).hasFocus) {
-              FocusScope.of(context).unfocus();
-            }
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  const Gap(67),
-                  SvgPicture.asset(AppIcons.logo),
-                  const Gap(44),
-                  TextFormField(
-                    style: textFieldContentStyle,
-                    cursorColor: cursorColor,
-                    focusNode: mailFocusNode,
-                    controller: mailTextEditingController,
-                    decoration: decoration(hintText: 'Email'),
-                    textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.emailAddress,
-                    onEditingComplete: () {
-                      passwordFocusNode.requestFocus();
-                    },
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Iltimos, mail kiriting!';
-                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value)) {
-                        return 'Iltimos, yaroqli mail manzilini kiriting';
-                      }
+        return SafeArea(
+          child: GestureDetector(
+            behavior: HitTestBehavior.opaque,
+            onTap: () {
+              if (FocusScope.of(context).hasFocus) {
+                FocusScope.of(context).unfocus();
+              }
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/home');
+                          },
+                          child: const Text(
+                            "Skip",
+                            style: TextStyle(color: Colors.blue),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Gap(67),
+                    SvgPicture.asset(AppIcons.logo),
+                    const Gap(44),
+                    TextFormField(
+                      style: textFieldContentStyle,
+                      cursorColor: cursorColor,
+                      focusNode: mailFocusNode,
+                      controller: mailTextEditingController,
+                      decoration: decoration(hintText: 'Email'),
+                      textInputAction: TextInputAction.next,
+                      keyboardType: TextInputType.emailAddress,
+                      onEditingComplete: () {
+                        passwordFocusNode.requestFocus();
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Iltimos, mail kiriting!';
+                        } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                            .hasMatch(value)) {
+                          return 'Iltimos, yaroqli mail manzilini kiriting';
+                        }
 
-                      return null;
-                    },
-                  ),
-                  const Gap(16),
-                  TextFormField(
-                    style: textFieldContentStyle,
-                    cursorColor: cursorColor,
-                    focusNode: passwordFocusNode,
-                    controller: passwordTextEditingController,
-                    decoration: decoration(
-                      hintText: 'Password',
-                      suffixIcon: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            isObscure = !isObscure;
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 13.5),
-                          child: SvgPicture.asset(
-                            isObscure ? AppIcons.eyeOff : AppIcons.eyeOn,
+                        return null;
+                      },
+                    ),
+                    const Gap(16),
+                    TextFormField(
+                      style: textFieldContentStyle,
+                      cursorColor: cursorColor,
+                      focusNode: passwordFocusNode,
+                      controller: passwordTextEditingController,
+                      decoration: decoration(
+                        hintText: 'Password',
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isObscure = !isObscure;
+                            });
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 13.5),
+                            child: SvgPicture.asset(
+                              isObscure ? AppIcons.eyeOff : AppIcons.eyeOn,
+                            ),
+                          ),
+                        ),
+                      ),
+                      onEditingComplete: () {
+                        // TODO: Login
+                      },
+                      textInputAction: TextInputAction.done,
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: isObscure,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Iltimos, parolingizni kiriting!';
+                        } else if (value.length < 7) {
+                          return 'Parol eng kamida 8ta belgidan tashkil topgan bo\'lishi kerak';
+                        }
+
+                        return null;
+                      },
+                    ),
+                    const Gap(12),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {},
+                        child: const Text(
+                          'Forgot password?',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                            color: textButtonColor,
                           ),
                         ),
                       ),
                     ),
-                    onEditingComplete: () {
-                      // TODO: Login
-                    },
-                    textInputAction: TextInputAction.done,
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: isObscure,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Iltimos, parolingizni kiriting!';
-                      } else if (value.length < 7) {
-                        return 'Parol eng kamida 8ta belgidan tashkil topgan bo\'lishi kerak';
-                      }
-
-                      return null;
-                    },
-                  ),
-                  const Gap(12),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: GestureDetector(
-                      onTap: () {},
-                      child: const Text(
-                        'Forgot password?',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w400,
-                          color: textButtonColor,
-                        ),
-                      ),
+                    const Gap(16),
+                    WButton(
+                      isDisabled: !isLoginDataValid,
+                      onTap: () {
+                        if (formKey.currentState!.validate()) {
+                          authUser.user = AuthenticatedUserEntity(
+                            email: mailTextEditingController.text,
+                            password: passwordTextEditingController.text,
+                          );
+                          Navigator.of(context).pushNamed('/home');
+                        }
+                      },
+                      text: 'Login',
                     ),
-                  ),
-                  const Gap(16),
-                  WButton(
-                    isDisabled: !isLoginDataValid,
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        authUser.user = AuthenticatedUserEntity(
-                          email: mailTextEditingController.text,
-                          password: passwordTextEditingController.text,
-                        );
-                        Navigator.of(context).pushNamed('/home');
-                      }
-                    },
-                    text: 'Login',
-                  ),
-                  const Gap(56),
-                  const Row(
-                    children: [
-                      Expanded(child: WDivider()),
-                      Gap(6),
-                      Text(
-                        'OR',
-                        style: TextStyle(
-                          color: white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
+                    const Gap(56),
+                    const Row(
+                      children: [
+                        Expanded(child: WDivider()),
+                        Gap(6),
+                        Text(
+                          'OR',
+                          style: TextStyle(
+                            color: white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      Gap(5),
-                      Expanded(child: WDivider()),
-                    ],
-                  ),
-                  const Gap(24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SocialMediaLoginButton(
-                          onTap: () {}, icon: AppIcons.facebook),
-                      const Gap(32),
-                      SocialMediaLoginButton(
-                          onTap: () {}, icon: AppIcons.google),
-                      const Gap(32),
-                      SocialMediaLoginButton(
-                          onTap: () {}, icon: AppIcons.apple),
-                    ],
-                  ),
-                ],
+                        Gap(5),
+                        Expanded(child: WDivider()),
+                      ],
+                    ),
+                    const Gap(24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SocialMediaLoginButton(
+                            onTap: () {}, icon: AppIcons.facebook),
+                        const Gap(32),
+                        SocialMediaLoginButton(
+                            onTap: () {}, icon: AppIcons.google),
+                        const Gap(32),
+                        SocialMediaLoginButton(
+                            onTap: () {}, icon: AppIcons.apple),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

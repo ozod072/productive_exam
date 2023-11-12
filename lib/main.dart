@@ -5,6 +5,7 @@ import 'assets/theme/theme.dart';
 import 'features/authentication/presentation/widgets/authenticated_user.dart';
 
 final authUser = AuthenticatedUser();
+
 void main() {
   runApp(const App());
 }
